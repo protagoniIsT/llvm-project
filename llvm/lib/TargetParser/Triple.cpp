@@ -43,6 +43,7 @@ StringRef Triple::getArchTypeName(ArchType Kind) {
   case hsail64:        return "hsail64";
   case hsail:          return "hsail";
   case kalimba:        return "kalimba";
+  case karch:          return "karch";
   case lanai:          return "lanai";
   case loongarch32:    return "loongarch32";
   case loongarch64:    return "loongarch64";
@@ -195,6 +196,8 @@ StringRef Triple::getArchTypePrefix(ArchType Kind) {
   case mips64el:    return "mips";
 
   case hexagon:     return "hexagon";
+
+  case karch:       return "karch";
 
   case amdgcn:      return "amdgcn";
   case r600:        return "r600";
@@ -474,6 +477,7 @@ Triple::ArchType Triple::getArchTypeForLLVMName(StringRef Name) {
     .Case("spirv32", spirv32)
     .Case("spirv64", spirv64)
     .Case("kalimba", kalimba)
+    .Case("karch", karch)
     .Case("lanai", lanai)
     .Case("shave", shave)
     .Case("wasm32", wasm32)
@@ -618,6 +622,7 @@ static Triple::ArchType parseArch(StringRef ArchName) {
             "spirv64v1.3", "spirv64v1.4", "spirv64v1.5",
             "spirv64v1.6", Triple::spirv64)
           .StartsWith("kalimba", Triple::kalimba)
+          .Case("karch", Triple::karch)
           .Case("lanai", Triple::lanai)
           .Case("renderscript32", Triple::renderscript32)
           .Case("renderscript64", Triple::renderscript64)
@@ -944,6 +949,7 @@ static Triple::ObjectFormatType getDefaultFormat(const Triple &T) {
   case Triple::hsail64:
   case Triple::hsail:
   case Triple::kalimba:
+  case Triple::karch:
   case Triple::lanai:
   case Triple::loongarch32:
   case Triple::loongarch64:
@@ -1657,6 +1663,7 @@ unsigned Triple::getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
   case llvm::Triple::hexagon:
   case llvm::Triple::hsail:
   case llvm::Triple::kalimba:
+  case Triple::karch:
   case llvm::Triple::lanai:
   case llvm::Triple::loongarch32:
   case llvm::Triple::m68k:
@@ -1767,6 +1774,7 @@ Triple Triple::get32BitArchVariant() const {
   case Triple::hexagon:
   case Triple::hsail:
   case Triple::kalimba:
+  case Triple::karch:
   case Triple::lanai:
   case Triple::loongarch32:
   case Triple::m68k:
@@ -1832,6 +1840,7 @@ Triple Triple::get64BitArchVariant() const {
   case Triple::dxil:
   case Triple::hexagon:
   case Triple::kalimba:
+  case Triple::karch:
   case Triple::lanai:
   case Triple::m68k:
   case Triple::msp430:
@@ -1917,6 +1926,7 @@ Triple Triple::getBigEndianArchVariant() const {
   case Triple::hsail64:
   case Triple::hsail:
   case Triple::kalimba:
+  case Triple::karch:
   case Triple::loongarch32:
   case Triple::loongarch64:
   case Triple::msp430:
@@ -2020,6 +2030,7 @@ bool Triple::isLittleEndian() const {
   case Triple::hsail64:
   case Triple::hsail:
   case Triple::kalimba:
+  case Triple::karch:
   case Triple::loongarch32:
   case Triple::loongarch64:
   case Triple::mips64el:

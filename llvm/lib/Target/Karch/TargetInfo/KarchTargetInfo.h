@@ -1,0 +1,12 @@
+#ifndef LLVM_LIB_TARGET_KARCH_TARGETINFO_KARCHTARGETINFO_H
+#define LLVM_LIB_TARGET_KARCH_TARGETINFO_KARCHTARGETINFO_H
+
+namespace llvm {
+
+class Target;
+
+Target &getTheKarchTarget();
+
+} // end namespace llvm
+
+#endif // LLVM_LIB_TARGET_KARCH_TARGETINFO_KARCHTARGETINFO_H
