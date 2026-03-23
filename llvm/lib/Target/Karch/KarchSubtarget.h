@@ -5,6 +5,8 @@
 #include "KarchISelLowering.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 #include "KarchFrameLowering.h"
+#include "KarchInstrInfo.h"
+#include "llvm/CodeGen/SelectionDAGTargetInfo.h"
 #include "KarchRegisterInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -16,6 +18,8 @@ class KarchSubtarget : public KarchGenSubtargetInfo {
     KarchTargetLowering TLInfo;
     KarchFrameLowering FrameLowering;
     KarchRegisterInfo RegInfo;
+    KarchInstrInfo InstrInfo;
+    SelectionDAGTargetInfo TSInfo;
 
 public:
   KarchSubtarget(const Triple &TT, const std::string &CPU, const std::string &FS,
@@ -38,6 +42,12 @@ public:
   const KarchRegisterInfo *getRegisterInfo() const override {
     KARCH_DUMP_CYAN
     return &RegInfo;
+  }
+
+  const KarchInstrInfo *getInstrInfo() const override { return &InstrInfo; }
+  const SelectionDAGTargetInfo *getSelectionDAGInfo() const override {
+    KARCH_DUMP_CYAN
+    return &TSInfo;
   }
 };
 
