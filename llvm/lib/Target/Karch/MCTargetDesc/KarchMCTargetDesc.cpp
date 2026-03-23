@@ -1,5 +1,6 @@
 #include "MCTargetDesc/KarchInfo.h"
 #include "Karch.h"
+#include "KarchInstPrinter.h"
 #include "KarchMCAsmInfo.h"
 #include "TargetInfo/KarchTargetInfo.h"
 #include "llvm/MC/MCDwarf.h"
@@ -51,6 +52,16 @@ static MCAsmInfo *createKarchMCAsmInfo(const MCRegisterInfo &MRI,
   return MAI;
 }
 
+static MCInstPrinter *createKarchMCInstPrinter(const Triple &T,
+                                             unsigned SyntaxVariant,
+                                             const MCAsmInfo &MAI,
+                                             const MCInstrInfo &MII,
+                                             const MCRegisterInfo &MRI) {
+  KARCH_DUMP_MAGENTA
+  return new KarchInstPrinter(MAI, MII, MRI);
+}
+
+
 
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeKarchTargetMC() {
   KARCH_DUMP_MAGENTA
@@ -64,4 +75,7 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeKarchTargetMC() {
   
   // Register the MC subtarget info.
   TargetRegistry::RegisterMCSubtargetInfo(TheKarchTarget, createKarchMCSubtargetInfo);
+
+  // Register the MCInstPrinter
+  TargetRegistry::RegisterMCInstPrinter(TheKarchTarget, createKarchMCInstPrinter);
 }
