@@ -22,6 +22,19 @@ enum NodeType : unsigned {
 
 } // namespace KarchISD
 
+class KarchTargetLowering : public TargetLowering {
+public:
+  explicit KarchTargetLowering(const TargetMachine &TM, const KarchSubtarget &STI);
+
+  /// This method returns the name of a target specific DAG node.
+  const char *getTargetNodeName(unsigned Opcode) const override;
+
+  KarchSubtarget const &getSubtarget() const { return STI; }
+
+private:
+  const KarchSubtarget &STI;
+};
+
 } // end namespace llvm
 
 #endif // LLVM_LIB_TARGET_KARCH_KARCHISELLOWERING_H

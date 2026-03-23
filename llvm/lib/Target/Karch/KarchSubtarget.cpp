@@ -10,8 +10,8 @@ using namespace llvm;
 #define GET_SUBTARGETINFO_CTOR
 #include "KarchGenSubtargetInfo.inc"
 
-KarchSubtarget::KarchSubtarget(const StringRef &CPU, const StringRef &TuneCPU,
-                           const StringRef &FS, const TargetMachine &TM)
-    : KarchGenSubtargetInfo(TM.getTargetTriple(), CPU, TuneCPU, FS) {
+KarchSubtarget::KarchSubtarget(const Triple &TT, const std::string &CPU,
+                           const std::string &FS, const TargetMachine &TM)
+    : KarchGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this) {
   KARCH_DUMP_CYAN
 }

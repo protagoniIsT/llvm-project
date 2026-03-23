@@ -18,6 +18,7 @@ add_llvm_target(KarchCodeGen
   KarchSubtarget.cpp
   KarchAsmPrinter.cpp
   KarchISelDagToDag.cpp
+  KarchISelLowering.cpp
 
   LINK_COMPONENTS
   CodeGen
