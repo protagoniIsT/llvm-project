@@ -5,6 +5,7 @@ set(LLVM_TARGET_DEFINITIONS Karch.td)
 tablegen(LLVM KarchGenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM KarchGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM KarchGenSubtargetInfo.inc -gen-subtarget)
+tablegen(LLVM KarchGenMCPseudoLowering.inc -gen-pseudo-lowering)
 
 add_public_tablegen_target(KarchCommonTableGen)
 
@@ -14,6 +15,7 @@ add_llvm_target(KarchCodeGen
   KarchRegisterInfo.cpp
   KarchInstrInfo.cpp
   KarchSubtarget.cpp
+  KarchAsmPrinter.cpp
 
   LINK_COMPONENTS
   CodeGen
@@ -21,6 +23,7 @@ add_llvm_target(KarchCodeGen
   Support
   Target
   KarchInfo
+  AsmPrinter
 
   ADD_TO_COMPONENT
   Karch
