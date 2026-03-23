@@ -1,5 +1,7 @@
+#include "MCTargetDesc/KarchInfo.h"
 #include "Karch.h"
 #include "TargetInfo/KarchTargetInfo.h"
+#include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/TargetRegistry.h"
 
@@ -8,16 +10,29 @@ using namespace llvm;
 #define GET_REGINFO_MC_DESC
 #include "KarchGenRegisterInfo.inc"
 
-static MCRegisterInfo *createSimMCRegisterInfo(const Triple &TT) {
-  SIM_DUMP_MAGENTA
+#define GET_INSTRINFO_MC_DESC
+#include "KarchGenInstrInfo.inc"
+
+static MCRegisterInfo *createKarchMCRegisterInfo(const Triple &TT) {
+  KARCH_DUMP_MAGENTA
   MCRegisterInfo *X = new MCRegisterInfo();
-  InitSimMCRegisterInfo(X, Sim::R0);
+  InitKarchMCRegisterInfo(X, Karch::R0);
   return X;
 }
 
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeSimTargetMC() {
-  SIM_DUMP_MAGENTA
-  Target &TheSimTarget = getTheSimTarget();
+static MCInstrInfo *createKarchMCInstrInfo() {
+  KARCH_DUMP_MAGENTA
+  MCInstrInfo *X = new MCInstrInfo();
+  InitKarchMCInstrInfo(X);
+  return X;
+}
+
+extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeKarchTargetMC() {
+  KARCH_DUMP_MAGENTA
+  Target &TheKarchTarget = getTheKarchTarget();
   // Register the MC register info.
-  TargetRegistry::RegisterMCRegInfo(TheSimTarget, createSimMCRegisterInfo);
+  TargetRegistry::RegisterMCRegInfo(TheKarchTarget, createKarchMCRegisterInfo);
+
+  // Register the MC instruction info.
+  TargetRegistry::RegisterMCInstrInfo(TheKarchTarget, createKarchMCInstrInfo);
 }

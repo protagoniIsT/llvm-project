@@ -1,15 +1,17 @@
 add_llvm_component_group(Karch)
 
-set(LLVM_TARGET_DEFINITIONS Sim.td)
+set(LLVM_TARGET_DEFINITIONS Karch.td)
 
-tablegen(LLVM SimGenRegisterInfo.inc -gen-register-info)
+tablegen(LLVM KarchGenRegisterInfo.inc -gen-register-info)
+tablegen(LLVM KarchGenInstrInfo.inc -gen-instr-info)
 
-add_public_tablegen_target(SimCommonTableGen)
+add_public_tablegen_target(KarchCommonTableGen)
 
 
 add_llvm_target(KarchCodeGen
   KarchTargetMachine.cpp
   KarchRegisterInfo.cpp
+  KarchInstrInfo.cpp
 
   LINK_COMPONENTS
   CodeGen
