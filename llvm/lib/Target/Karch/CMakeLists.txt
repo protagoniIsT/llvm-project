@@ -7,6 +7,7 @@ tablegen(LLVM KarchGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM KarchGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM KarchGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM KarchGenDAGISel.inc -gen-dag-isel)
+tablegen(LLVM KarchGenCallingConv.inc -gen-callingconv)
 
 add_public_tablegen_target(KarchCommonTableGen)
 
