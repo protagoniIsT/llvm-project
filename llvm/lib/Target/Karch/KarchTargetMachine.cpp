@@ -34,8 +34,14 @@ public:
   KarchPassConfig(KarchTargetMachine &TM, PassManagerBase &PM)
       : TargetPassConfig(TM, PM) {}
 
+  KarchTargetMachine &getKarchTargetMachine() const {
+    return getTM<KarchTargetMachine>();
+  }
+
+
   bool addInstSelector() override {
     KARCH_DUMP_CYAN
+    addPass(createKarchISelDag(getKarchTargetMachine(), getOptLevel()));
     return false;
   }
 };

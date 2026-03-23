@@ -3,6 +3,7 @@
 
 #include "MCTargetDesc/KarchMCTargetDesc.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Target/TargetMachine.h"
 
 #define KARCH_DUMP(Color)                                                        \
   {                                                                            \
@@ -18,5 +19,13 @@
 #define KARCH_DUMP_CYAN KARCH_DUMP(llvm::raw_ostream::CYAN)
 #define KARCH_DUMP_MAGENTA KARCH_DUMP(llvm::raw_ostream::MAGENTA)
 #define KARCH_DUMP_WHITE KARCH_DUMP(llvm::raw_ostream::WHITE)
+
+namespace llvm {
+class KarchTargetMachine;
+class FunctionPass;
+
+FunctionPass *createKarchISelDag(KarchTargetMachine &TM, CodeGenOptLevel OptLevel);
+
+} // namespace llvm
 
 #endif // LLVM_LIB_TARGET_Karch_Karch_H
