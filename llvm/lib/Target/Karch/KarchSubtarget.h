@@ -5,6 +5,7 @@
 #include "KarchISelLowering.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 #include "KarchFrameLowering.h"
+#include "KarchRegisterInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
 #include "KarchGenSubtargetInfo.inc"
@@ -14,6 +15,7 @@ namespace llvm {
 class KarchSubtarget : public KarchGenSubtargetInfo {
     KarchTargetLowering TLInfo;
     KarchFrameLowering FrameLowering;
+    KarchRegisterInfo RegInfo;
 
 public:
   KarchSubtarget(const Triple &TT, const std::string &CPU, const std::string &FS,
@@ -31,6 +33,11 @@ public:
   const KarchFrameLowering *getFrameLowering() const override {
     KARCH_DUMP_CYAN
     return &FrameLowering;
+  }
+  
+  const KarchRegisterInfo *getRegisterInfo() const override {
+    KARCH_DUMP_CYAN
+    return &RegInfo;
   }
 };
 
