@@ -38,6 +38,12 @@ public:
   StringRef getPassName() const override { return "Karch Assembly Printer"; }
 
   bool lowerPseudoInstExpansion(const MachineInstr *MI, MCInst &Inst);
+
+
+  // Used in pseudo lowerings
+  bool lowerOperand(const MachineOperand &MO, MCOperand &MCOp) const {
+    return LowerKarchMachineOperandToMCOperand(MO, MCOp, *this);
+  }
 };
 
 } // end anonymous namespace
@@ -53,6 +59,11 @@ void KarchAsmPrinter::emitInstruction(const MachineInstr *MI) {
     EmitToStreamer(*OutStreamer, OutInst);
     return;
   }
+
+
+  MCInst TmpInst;
+  if (!lowerKarchMachineInstrToMCInst(MI, TmpInst, *this))
+    EmitToStreamer(*OutStreamer, TmpInst);
 }
 
 // Force static initialization.

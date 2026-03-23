@@ -24,6 +24,20 @@ namespace llvm {
 class KarchTargetMachine;
 class FunctionPass;
 
+class KarchSubtarget;
+class AsmPrinter;
+class InstructionSelector;
+class MCInst;
+class MCOperand;
+class MachineInstr;
+class MachineOperand;
+class PassRegistry;
+
+bool lowerKarchMachineInstrToMCInst(const MachineInstr *MI, MCInst &OutMI,
+                                  AsmPrinter &AP);
+bool LowerKarchMachineOperandToMCOperand(const MachineOperand &MO,
+                                       MCOperand &MCOp, const AsmPrinter &AP);
+
 FunctionPass *createKarchISelDag(KarchTargetMachine &TM, CodeGenOptLevel OptLevel);
 
 } // namespace llvm
