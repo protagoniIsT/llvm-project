@@ -4,7 +4,7 @@
 
 using namespace llvm;
 
-#define DEBUG_TYPE "sim-subtarget"
+#define DEBUG_TYPE "karch-subtarget"
 
 #define GET_SUBTARGETINFO_TARGET_DESC
 #define GET_SUBTARGETINFO_CTOR
@@ -12,6 +12,7 @@ using namespace llvm;
 
 KarchSubtarget::KarchSubtarget(const Triple &TT, const std::string &CPU,
                            const std::string &FS, const TargetMachine &TM)
-    : KarchGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this) {
+     : KarchGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this),
+      FrameLowering(*this) {
   KARCH_DUMP_CYAN
 }
