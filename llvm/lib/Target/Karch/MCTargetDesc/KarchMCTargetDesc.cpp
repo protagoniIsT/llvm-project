@@ -1,10 +1,13 @@
 #include "MCTargetDesc/KarchInfo.h"
 #include "Karch.h"
+#include "KarchMCAsmInfo.h"
 #include "TargetInfo/KarchTargetInfo.h"
+#include "llvm/MC/MCDwarf.h"
 #include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/ErrorHandling.h"
 
 using namespace llvm;
 
@@ -37,10 +40,22 @@ static MCSubtargetInfo *createKarchMCSubtargetInfo(const Triple &TT,
   return createKarchMCSubtargetInfoImpl(TT, CPU, /*TuneCPU*/ CPU, FS);
 }
 
+static MCAsmInfo *createKarchMCAsmInfo(const MCRegisterInfo &MRI,
+                                     const Triple &TT,
+                                     const MCTargetOptions &Options) {
+  KARCH_DUMP_MAGENTA
+  MCAsmInfo *MAI = new KarchELFMCAsmInfo(TT);
+  unsigned SP = MRI.getDwarfRegNum(Karch::R1, true);
+  MCCFIInstruction Inst = MCCFIInstruction::cfiDefCfa(nullptr, SP, 0);
+  MAI->addInitialFrameState(Inst);
+  return MAI;
+}
+
 
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeKarchTargetMC() {
   KARCH_DUMP_MAGENTA
   Target &TheKarchTarget = getTheKarchTarget();
+  RegisterMCAsmInfoFn X(TheKarchTarget, createKarchMCAsmInfo);
   // Register the MC register info.
   TargetRegistry::RegisterMCRegInfo(TheKarchTarget, createKarchMCRegisterInfo);
 
