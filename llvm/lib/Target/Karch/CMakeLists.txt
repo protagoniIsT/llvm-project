@@ -8,6 +8,7 @@ tablegen(LLVM KarchGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM KarchGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM KarchGenDAGISel.inc -gen-dag-isel)
 tablegen(LLVM KarchGenCallingConv.inc -gen-callingconv)
+tablegen(LLVM SimGenAsmWriter.inc -gen-asm-writer)
 
 add_public_tablegen_target(KarchCommonTableGen)
 
@@ -20,6 +21,7 @@ add_llvm_target(KarchCodeGen
   KarchAsmPrinter.cpp
   KarchISelDagToDag.cpp
   KarchISelLowering.cpp
+  SimInstPrinter.cpp
 
   LINK_COMPONENTS
   CodeGen
