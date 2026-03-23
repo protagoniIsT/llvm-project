@@ -1,5 +1,23 @@
-#include "../Karch.h"
-#include "llvm/Support/raw_ostream.h"
+#include "Karch.h"
+#include "TargetInfo/KarchTargetInfo.h"
+#include "llvm/MC/MCRegisterInfo.h"
+#include "llvm/MC/TargetRegistry.h"
 
-// We need to define this function for linking succeed
-extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeKarchTargetMC() { KARCH_DUMP_MAGENTA }
+using namespace llvm;
+
+#define GET_REGINFO_MC_DESC
+#include "KarchGenRegisterInfo.inc"
+
+static MCRegisterInfo *createSimMCRegisterInfo(const Triple &TT) {
+  SIM_DUMP_MAGENTA
+  MCRegisterInfo *X = new MCRegisterInfo();
+  InitSimMCRegisterInfo(X, Sim::R0);
+  return X;
+}
+
+extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeSimTargetMC() {
+  SIM_DUMP_MAGENTA
+  Target &TheSimTarget = getTheSimTarget();
+  // Register the MC register info.
+  TargetRegistry::RegisterMCRegInfo(TheSimTarget, createSimMCRegisterInfo);
+}
