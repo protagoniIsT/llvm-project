@@ -9,6 +9,7 @@ tablegen(LLVM KarchGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM KarchGenDAGISel.inc -gen-dag-isel)
 tablegen(LLVM KarchGenCallingConv.inc -gen-callingconv)
 tablegen(LLVM KarchGenAsmWriter.inc -gen-asm-writer)
+tablegen(LLVM KarchGenMCCodeEmitter.inc -gen-emitter)
 
 add_public_tablegen_target(KarchCommonTableGen)
 

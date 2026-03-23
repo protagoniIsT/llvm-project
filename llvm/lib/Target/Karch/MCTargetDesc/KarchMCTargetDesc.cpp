@@ -78,4 +78,7 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeKarchTargetMC() {
 
   // Register the MCInstPrinter
   TargetRegistry::RegisterMCInstPrinter(TheKarchTarget, createKarchMCInstPrinter);
+
+  // Register the MC Code Emitter.
+  TargetRegistry::RegisterMCCodeEmitter(TheKarchTarget, createKarchMCCodeEmitter);
 }
