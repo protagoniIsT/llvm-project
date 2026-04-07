@@ -81,4 +81,7 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeKarchTargetMC() {
 
   // Register the MC Code Emitter.
   TargetRegistry::RegisterMCCodeEmitter(TheKarchTarget, createKarchMCCodeEmitter);
+  
+  // Register the asm backend.
+  TargetRegistry::RegisterMCAsmBackend(TheSimTarget, createSimAsmBackend);
 }
