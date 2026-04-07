@@ -1,6 +1,8 @@
 #ifndef LLVM_LIB_TARGET_KARCH_MCTARGETDESC_KARCHMCTARGETDESC_H
 #define LLVM_LIB_TARGET_KARCH_MCTARGETDESC_KARCHMCTARGETDESC_H
 
+#include <memory>
+
 namespace llvm {
 class MCCodeEmitter;
 class MCContext;
@@ -16,6 +18,8 @@ MCCodeEmitter *createKarchMCCodeEmitter(const MCInstrInfo &MCII, MCContext &Ctx)
 MCAsmBackend *createKarchAsmBackend(const Target &T, const MCSubtargetInfo &STI,
                                   const MCRegisterInfo &MRI,
                                   const MCTargetOptions &Options);
+std::unique_ptr<MCObjectTargetWriter> createKarchELFObjectWriter(bool Is64Bit,
+                                                               uint8_t OSABI);
 } // namespace llvm
 
 // Defines symbolic names for Karch registers.  This defines a mapping from

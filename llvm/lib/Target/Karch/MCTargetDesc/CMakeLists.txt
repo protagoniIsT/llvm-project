@@ -4,6 +4,7 @@ add_llvm_component_library(LLVMKarchDesc
   KarchInstPrinter.cpp
   KarchMCCodeEmitter.cpp
   KarchAsmBackend.cpp
+  KarchELFObjectWriter.cpp
 
   LINK_COMPONENTS
   MC
