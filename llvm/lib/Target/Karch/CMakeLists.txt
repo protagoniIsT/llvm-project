@@ -22,7 +22,6 @@ add_llvm_target(KarchCodeGen
   KarchAsmPrinter.cpp
   KarchISelDagToDag.cpp
   KarchISelLowering.cpp
-  KarchInstPrinter.cpp
   KarchMCInstLower.cpp
 
   LINK_COMPONENTS

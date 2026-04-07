@@ -5,13 +5,13 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Target/TargetMachine.h"
 
-#define KARCH_DUMP(Color)                                                        \
+/*#define KARCH_DUMP(Color)                                                        \
   {                                                                            \
     llvm::errs().changeColor(Color)                                            \
         << __func__ << "\n\t\t" << __FILE__ << ":" << __LINE__ << "\n";        \
     llvm::errs().changeColor(llvm::raw_ostream::WHITE);                        \
-  }
-// #define KARCH_DUMP(Color) {}
+  }*/
+ #define KARCH_DUMP(Color) {}
 
 #define KARCH_DUMP_RED KARCH_DUMP(llvm::raw_ostream::RED)
 #define KARCH_DUMP_GREEN KARCH_DUMP(llvm::raw_ostream::GREEN)
