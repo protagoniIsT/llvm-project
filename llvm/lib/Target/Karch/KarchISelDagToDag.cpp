@@ -22,7 +22,7 @@
 
 using namespace llvm;
 
-#define DEBUG_TYPE "sim-isel"
+#define DEBUG_TYPE "karch-isel"
 
 namespace {
 
