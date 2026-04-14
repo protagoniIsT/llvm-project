@@ -56,8 +56,8 @@ def MOVLI : KarchInst<0xAA, (outs GPR:$r1), (ins simm16:$r3_imm),
 
 // flush
 let r1 = 0, r2 = 0, r3_imm = 0 in
-def FLUSH : SimInst<0xFF, (outs), (ins), "FLUSH", [(int_karch_flush)]>;
+def FLUSH : KarchInst<0xFF, (outs), (ins), "FLUSH", [(int_karch_flush)]>;
 
 // putpixel
-def PUTPIXEL : SimInst<0xEE, (outs), (ins GPR:$r1, GPR:$r2, GPR:$r3_imm),
+def PUTPIXEL : KarchInst<0xEE, (outs), (ins GPR:$r1, GPR:$r2, GPR:$r3_imm),
                       "PUTPIXEL $r1 $r2 $r3_imm", [(int_karch_putpixel GPR:$r1, GPR:$r2, GPR:$r3_imm)]>;
