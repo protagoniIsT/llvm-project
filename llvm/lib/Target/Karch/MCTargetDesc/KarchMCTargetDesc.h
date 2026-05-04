@@ -28,4 +28,8 @@ std::unique_ptr<MCObjectTargetWriter> createKarchELFObjectWriter(bool Is64Bit,
 #define GET_REGINFO_ENUM
 #include "KarchGenRegisterInfo.inc"
 
+// Defines symbolic names for Karch instructions.
+#define GET_INSTRINFO_ENUM
+#include "KarchGenInstrInfo.inc"
+
 #endif // LLVM_LIB_TARGET_KARCH_MCTARGETDESC_KARCHMCTARGETDESC_H
